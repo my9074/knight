@@ -1,7 +1,6 @@
 const router = require('koa-router');
 const Router = new router();
-
-const User = require('./router/user');//倒入模块
+const fs = require('fs');
 
 /**
  * 添加router
@@ -16,10 +15,24 @@ const addRouters = (router) => {
 }
 
 /**
+ * 扫描目录
+ */
+const Scan = () => {
+    const url = './router';
+    const dir = fs.readdirSync(url)//同步方法无所谓的，因为是在服务器跑起来之前就完成映射，不会有任何性能影响
+    console.log('扫描路由目录----> ', dir)
+
+    dir.forEach((filename) => {
+        const routerModel = require(url + '/' + filename);
+        addRouters(routerModel);
+    })
+}
+
+/**
  * 返回router中间件
  */
 const setRouters = () => {
-    addRouters(User);
+    Scan();
     return Router.routes() //Router.routes() 返回的是中间件回调函数
 }
 
