@@ -2,11 +2,11 @@ const koa = require('koa');
 
 const setRouters = require('./routerLoader');//引入router中间件
 
-const controllerLoader = require('./controllerLoader');//引入router中间件
-const controllers = controllerLoader();
+const controllers = require('./loader').loadController();//引入router中间件
+
 koa.prototype['controller'] = {};
 controllers.forEach(ctrl => {
-    koa.prototype.controller[ctrl.name] = ctrl.controller;
+    koa.prototype.controller[ctrl.name] = ctrl.module;
 })
 
 const app = new koa();

@@ -1,8 +1,10 @@
 module.exports = {
-    async getUser(ctx) {
+    async getUser(ctx, service) {
+        await service.user.user();
         ctx.body = 'getUser';
     },
-    async getUserInfo(ctx) {
+    async getUserInfo(ctx, service) {
+        await service.user.getUserInfo();
         ctx.body = 'getUserInfo';
     }
 };
