@@ -28,33 +28,41 @@ class KnightLoader {
         return this.loader(url);
     }
 
+    loadConfig() {
+        const url = this.removeString(__dirname) + '/config';
+        return this.loader(url);
+    }
 }
 
 class Knight extends koa {
     constructor(props) {
         super(props);
         this.router = new koaRoute();
-
         this.loader = new KnightLoader();
-        const controllers = this.loader.loadController();
         this.controller = {};
-        controllers.forEach((crl) => {
+        this.config = {};
+
+        this.loader.loadController().forEach(crl => {
             this.controller[crl.name] = crl.module;
-        })
+        });
+
+        this.loader.loadConfig().forEach(config => {
+            this.config = { ...this.config, ...config.module }
+        });
     }
 
     setRouters() {
         const _setRouters = (app) => {
             const routers = require('../routers')(app);
             const svs = {};
-            app.loader.loadService().forEach((service) => {
+            app.loader.loadService().forEach(service => {
                 svs[service.name] = service.module;
             })
-            Object.keys(routers).forEach((key) => {
+            Object.keys(routers).forEach(key => {
                 const [method, path] = key.split(' ');
-                app.router[method](path, (ctx) => {
+                app.router[method](path, ctx => {
                     const handler = routers[key];
-                    handler(ctx, svs);
+                    handler(ctx, svs, app);
                 })
             })
             return app.router.routes()
