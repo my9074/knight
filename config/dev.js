@@ -1,4 +1,4 @@
 module.exports = {
-    userName: 'userTest',
-    appName: 'appTest'
+  userName: 'userTest',
+  appName: 'appTest'
 };
