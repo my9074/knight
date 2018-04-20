@@ -10,7 +10,7 @@ Implementation ideas reference from [egg](https://github.com/eggjs/egg)
 ## Agreement
 
 | Directory   | Description |
-|---|---|---|---|---|---|
+|-------------|-------------|
 | controller | parsing user's input and send back the relative result after processing |
 | service  | abstract layer which is used to encapsulate business logics in complex business circumstances |
 | config | allows users to overwrite configuration in sequence and maintain different configs depending on different environments |
