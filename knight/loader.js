@@ -16,17 +16,17 @@ class KnightLoader {
   }
 
   loadController() {
-    const url = this.removeString(__dirname) + '/controller';
+    const url = this.removeString(__dirname) + 'controller';
     return this.loader(url);
   }
 
   loadService() {
-    const url = this.removeString(__dirname) + '/service';
+    const url = this.removeString(__dirname) + 'service';
     return this.loader(url);
   }
 
   loadConfig() {
-    const url = this.removeString(__dirname) + '/config';
+    const url = this.removeString(__dirname) + 'config';
     return this.loader(url);
   }
 }
